@@ -4,7 +4,7 @@ import { Button } from './components/Button'
 function App() {
   return (
     <div className="App">
-      <Button variant={0}>button</Button>
+      <Button variant="default">button</Button>
     </div>
   )
 }
