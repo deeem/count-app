@@ -10,17 +10,24 @@ const variants: Record<Variant, string> = {
 }
 
 type Props = {
-  variant: Variant
+  variant?: Variant
   children?: ReactNode
+  disabled?: true | boolean | undefined
 }
 
-export const Button: React.FC<Props> = ({ variant, children }) => {
+export const Button: React.FC<Props> = ({
+  variant = 'default',
+  disabled,
+  children,
+}) => {
   return (
     <button
       className={classNames(
         'px-4 py-2  transition duration-300 bg-white border  rounded cursor-pointer ',
-        variants[variant]
+        variants[variant],
+        disabled && 'opacity-50 cursor-not-allowed'
       )}
+      disabled={disabled}
     >
       {children}
     </button>
