@@ -1,5 +1,5 @@
 import { ReactNode } from 'react'
-import { classNames } from '../classNames'
+import { classNames } from 'classNames'
 
 type Variant = 'default' | 'red' | 'blue'
 
