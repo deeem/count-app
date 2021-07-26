@@ -1,12 +1,16 @@
-import { Badge } from 'components/Badge'
-import { Button } from 'components/Button'
+import { Main } from 'pages/main/Main'
+import { BrowserRouter as Router, Switch, Route } from 'react-router-dom'
 
 function App() {
   return (
-    <div className="App">
-      <Button variant="default">button</Button>
-      <Badge variant="fuchsia">badge</Badge>
-    </div>
+    <Router>
+      <Switch>
+        <Route path="/:room">count</Route>
+        <Route path="/" exact>
+          <Main />
+        </Route>
+      </Switch>
+    </Router>
   )
 }
 
