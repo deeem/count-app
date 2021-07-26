@@ -13,18 +13,21 @@ type Props = {
   variant?: Variant
   disabled?: true | boolean | undefined
   children?: ReactNode
+  onClick?: () => void
 }
 
 export const Button: React.FC<Props> = ({
   variant = 'default',
   disabled,
   children,
+  onClick,
 }) => {
   return (
     <button
+      onClick={onClick}
       disabled={disabled}
       className={classNames(
-        'px-4 py-2  transition duration-300 bg-white border  rounded cursor-pointer ',
+        'px-4 py-2  transition duration-300 bg-white border  rounded cursor-pointer outline-none',
         variants[variant],
         disabled && 'opacity-50 cursor-not-allowed'
       )}
