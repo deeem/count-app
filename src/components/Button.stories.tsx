@@ -12,25 +12,25 @@ const Template: ComponentStory<typeof Button> = (args) => <Button {...args} />
 
 export const Default = Template.bind({})
 Default.args = {
-  variant: 'default',
+  variant: 'primary',
   children: 'Button',
 }
 
 export const Red = Template.bind({})
 Red.args = {
-  variant: 'red',
+  variant: 'outline',
   children: 'Button',
 }
 
 export const Blue = Template.bind({})
 Blue.args = {
-  variant: 'blue',
+  variant: 'outline',
   children: 'Button',
 }
 
 export const Disabled = Template.bind({})
 Disabled.args = {
-  variant: 'blue',
+  variant: 'outline',
   disabled: true,
   children: 'Button',
 }
