@@ -1,13 +1,15 @@
-import { Main } from 'pages/main/Main'
+import { CountPage, MainPage } from 'pages'
 import { BrowserRouter as Router, Switch, Route } from 'react-router-dom'
 
 function App() {
   return (
     <Router>
       <Switch>
-        <Route path="/:room">count</Route>
+        <Route path="/:room">
+          <CountPage />
+        </Route>
         <Route path="/" exact>
-          <Main />
+          <MainPage />
         </Route>
       </Switch>
     </Router>
