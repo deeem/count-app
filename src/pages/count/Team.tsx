@@ -1,4 +1,4 @@
-import { Badge } from 'components'
+import { Badge, Button } from 'components'
 
 type TeamMate = {
   name: string
@@ -30,15 +30,22 @@ export const Team = () => {
     <>
       <h3>Team</h3>
       <ul>
-        {teammates.map((item) => (
-          <li className="flex p-4 border-b border-b-1 last:border-b-0">
-            <span className="w-1/3">{item.name}</span>
+        {teammates.map(({ name, status }) => (
+          <li
+            className="flex items-center p-4 border-b border-b-1 last:border-b-0"
+            key={status}
+          >
+            <span className="w-1/3">{name}</span>
             <span className="w-1/3">
-              <Badge variant={statusToVariantMap[item.status]}>
-                {item.status}
-              </Badge>
+              <Badge variant={statusToVariantMap[status]}>{status}</Badge>
             </span>
-            <span className="w-1/3">1</span>
+            <span className="w-1/3">
+              {status === 'ready' && (
+                <Button variant="outline" color="gray">
+                  set active
+                </Button>
+              )}
+            </span>
           </li>
         ))}
       </ul>
