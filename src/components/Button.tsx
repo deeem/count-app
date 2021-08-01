@@ -1,4 +1,4 @@
-import { ReactNode } from 'react'
+import React, { ReactNode } from 'react'
 import { classNames } from 'classNames'
 
 type Variant = 'filled' | 'outline'
@@ -23,14 +23,20 @@ const sizes: Record<Size, string> = {
   large: 'px-5 py-3 text-lg font-semibold',
 }
 
-type Props = {
+interface Props extends React.ComponentPropsWithoutRef<'button'> {
   variant?: Variant
   color?: Color
   size?: Size
   disabled?: true | boolean | undefined
   children?: ReactNode
-  onClick?: () => void
+  // onClick?: () => void
 }
+
+// type a = React.HTMLProps<HTMLButtonElement>
+
+// type a = React.ButtonHTMLAttributes
+// React.HtmlHTMLAttributes<HTMLButtonElement> &
+//   React.ButtonHTMLAttributes &
 
 export const Button: React.FC<Props> = ({
   variant = 'filled',
@@ -38,11 +44,12 @@ export const Button: React.FC<Props> = ({
   size = 'medium',
   disabled,
   children,
-  onClick,
+  // onClick,
+  ...props
 }) => {
   return (
     <button
-      onClick={onClick}
+      // onClick={onClick}
       disabled={disabled}
       className={classNames(
         'transition duration-300 rounded cursor-pointer outline-none',
@@ -50,6 +57,7 @@ export const Button: React.FC<Props> = ({
         sizes[size],
         disabled && 'opacity-50 cursor-not-allowed'
       )}
+      {...props}
     >
       {children}
     </button>

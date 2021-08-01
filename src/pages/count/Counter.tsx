@@ -1,9 +1,11 @@
 import { Button } from 'components'
-import { useState } from 'react'
 
-export const Counter = () => {
-  const [counter, setCounter] = useState(0)
+type Props = {
+  counter: number
+  setCounter: (counter: number) => void
+}
 
+export const Counter: React.FC<Props> = ({ counter, setCounter }) => {
   const increment = () => {
     setCounter(counter + 1)
   }
