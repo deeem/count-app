@@ -28,18 +28,20 @@ const statusToVariantMap: Record<
 export const Team = () => {
   return (
     <>
-      <h3>Team</h3>
-      <ul>
+      <h3 className="pb-4 text-lg font-semibold tracking-widest text-center uppercase">
+        Team
+      </h3>
+      <ul className="max-w-screen-md mx-auto">
         {teammates.map(({ name, status }) => (
           <li
             className="flex items-center p-4 border-b border-b-1 last:border-b-0"
             key={status}
           >
-            <span className="w-1/3">{name}</span>
-            <span className="w-1/3">
+            <span className="flex justify-start flex-1">{name}</span>
+            <span className="flex justify-center flex-1">
               <Badge variant={statusToVariantMap[status]}>{status}</Badge>
             </span>
-            <span className="w-1/3">
+            <span className="flex justify-end flex-1">
               {status === 'ready' && (
                 <Button variant="outline" color="gray">
                   set active

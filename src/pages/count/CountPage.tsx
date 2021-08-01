@@ -15,11 +15,17 @@ export const CountPage = () => {
 
   return (
     <>
-      {editMode ? (
-        <CounterEdit counter={counter} onChange={onCounterEdit} />
-      ) : (
-        <Counter counter={counter} setCounter={setCounter} />
-      )}
+      <div className="mt-12 mb-8">
+        <h3 className="mb-4 text-lg font-semibold tracking-widest text-center uppercase">
+          Score
+        </h3>
+
+        {editMode ? (
+          <CounterEdit counter={counter} onChange={onCounterEdit} />
+        ) : (
+          <Counter counter={counter} setCounter={setCounter} />
+        )}
+      </div>
       <Team />
       <Controls editMode={editMode} setEditMode={setEditMode} />
     </>
