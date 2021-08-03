@@ -1,7 +1,11 @@
-import { CountPage, MainPage } from 'pages'
+import { useAuth } from 'hooks/useAuth'
+import { CountPage, MainPage, LoginPage } from 'pages'
 import { BrowserRouter as Router, Switch, Route } from 'react-router-dom'
 
 function App() {
+  const user = useAuth()
+
+  if (!user) return <LoginPage />
   return (
     <Router>
       <Switch>
