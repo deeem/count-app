@@ -1,19 +1,19 @@
 import { Badge, Button } from 'components'
+import { useAuth } from 'hooks/useAuth'
 
-type TeamMate = {
-  name: string
+type TeamMate = ReturnType<typeof useAuth> & {
   status: 'active' | 'ready' | 'away'
 }
 
 type TeamMates = TeamMate[]
 
 const teammates: TeamMates = [
-  { name: 'aaaa', status: 'active' },
-  { name: 'bbbb', status: 'ready' },
-  { name: 'cccc', status: 'ready' },
-  { name: 'dddd', status: 'ready' },
-  { name: 'eeee', status: 'away' },
-  { name: 'ffff', status: 'away' },
+  { displayName: 'aaaa', status: 'active' },
+  { displayName: 'bbbb', status: 'ready' },
+  { displayName: 'cccc', status: 'ready' },
+  { displayName: 'dddd', status: 'ready' },
+  { displayName: 'eeee', status: 'away' },
+  { displayName: 'ffff', status: 'away' },
 ]
 
 const statusToVariantMap: Record<
@@ -25,19 +25,23 @@ const statusToVariantMap: Record<
   away: 'fuchsia',
 }
 
-export const Team = () => {
+type Props = {
+  user: ReturnType<typeof useAuth> | undefined
+}
+
+export const Team: React.FC<Props> = ({ user }) => {
   return (
     <>
       <h3 className="pb-4 text-lg font-semibold tracking-widest text-center uppercase">
         Team
       </h3>
       <ul className="max-w-screen-md mx-auto">
-        {teammates.map(({ name, status }) => (
+        {teammates.map(({ displayName, status }) => (
           <li
             className="flex items-center p-4 border-b border-b-1 last:border-b-0"
             key={status}
           >
-            <span className="flex justify-start flex-1">{name}</span>
+            <span className="flex justify-start flex-1">{displayName}</span>
             <span className="flex justify-center flex-1">
               <Badge variant={statusToVariantMap[status]}>{status}</Badge>
             </span>

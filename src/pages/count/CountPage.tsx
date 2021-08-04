@@ -7,15 +7,13 @@ import { CounterEdit } from './CounterEdit'
 import { useAuth } from 'hooks/useAuth'
 
 type Props = {
-  user: ReturnType<typeof useAuth>
+  user: ReturnType<typeof useAuth> | undefined
 }
 
 export const CountPage: React.FC<Props> = ({ user }) => {
   const [counter, setCounter] = useState(0)
   const [editMode, setEditMode] = useState(false)
   const { room } = useParams<{ room: string }>()
-
-  console.log({ room, user })
 
   const onCounterEdit = (newCounter: number) => {
     setCounter(newCounter)
@@ -35,7 +33,7 @@ export const CountPage: React.FC<Props> = ({ user }) => {
           <Counter counter={counter} setCounter={setCounter} />
         )}
       </div>
-      <Team />
+      <Team user={user} />
       <Controls editMode={editMode} setEditMode={setEditMode} />
     </>
   )
