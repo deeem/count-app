@@ -10,7 +10,7 @@ function App() {
     <Router>
       <Switch>
         <Route path="/:room">
-          <CountPage />
+          <CountPage user={user} />
         </Route>
         <Route path="/" exact>
           <MainPage />

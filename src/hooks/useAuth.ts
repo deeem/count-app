@@ -7,6 +7,8 @@ function useAuth() {
   useEffect(() => {
     return firebase.auth().onAuthStateChanged((firebaseUser) => {
       if (firebaseUser) {
+        console.log({ firebaseUser })
+
         const user = {
           displayName: firebaseUser.displayName,
           photoURL: firebaseUser.photoURL,

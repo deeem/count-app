@@ -1,12 +1,21 @@
-import { useState } from 'react'
+import React, { useState } from 'react'
+import { useParams } from 'react-router-dom'
 import { Team } from './Team'
 import { Controls } from './Controls'
 import { Counter } from './Counter'
 import { CounterEdit } from './CounterEdit'
+import { useAuth } from 'hooks/useAuth'
 
-export const CountPage = () => {
+type Props = {
+  user: ReturnType<typeof useAuth>
+}
+
+export const CountPage: React.FC<Props> = ({ user }) => {
   const [counter, setCounter] = useState(0)
   const [editMode, setEditMode] = useState(false)
+  const { room } = useParams<{ room: string }>()
+
+  console.log({ room, user })
 
   const onCounterEdit = (newCounter: number) => {
     setCounter(newCounter)
