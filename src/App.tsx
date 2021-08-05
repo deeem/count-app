@@ -13,7 +13,7 @@ function App() {
           <CountPage user={user} />
         </Route>
         <Route path="/" exact>
-          <MainPage />
+          <MainPage user={user} />
         </Route>
       </Switch>
     </Router>

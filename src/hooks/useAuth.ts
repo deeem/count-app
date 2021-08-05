@@ -1,5 +1,5 @@
-import { db, firebase } from '../firebase'
 import { useEffect, useState } from 'react'
+import { db, firebase } from '../firebase'
 
 function useAuth() {
   const [user, setUser] = useState<Partial<firebase.UserInfo> | null>(null)
