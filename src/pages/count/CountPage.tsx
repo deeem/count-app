@@ -4,10 +4,10 @@ import { Team } from './Team'
 import { Controls } from './Controls'
 import { Counter } from './Counter'
 import { CounterEdit } from './CounterEdit'
-import { useAuth } from 'hooks/useAuth'
+import { User } from 'app.types'
 
 type Props = {
-  user: ReturnType<typeof useAuth> | undefined
+  user: User
 }
 
 export const CountPage: React.FC<Props> = ({ user }) => {

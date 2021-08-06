@@ -1,11 +1,11 @@
-import { Button } from 'components'
-import { db } from '../../firebase'
-import { useHistory } from 'react-router-dom'
-import { useAuth } from 'hooks/useAuth'
 import React from 'react'
+import { useHistory } from 'react-router-dom'
+import { db } from '../../firebase'
+import { Button } from 'components'
+import { User } from 'app.types'
 
 type Props = {
-  user: ReturnType<typeof useAuth> | undefined
+  user: User
 }
 
 export const MainPage: React.FC<Props> = ({ user }) => {

@@ -1,7 +1,8 @@
+import { firebase } from 'firebase'
 import { Badge, Button } from 'components'
-import { useAuth } from 'hooks/useAuth'
+import { User } from 'app.types'
 
-type TeamMate = ReturnType<typeof useAuth> & {
+type TeamMate = Partial<firebase.UserInfo> & {
   status: 'active' | 'ready' | 'away'
 }
 
@@ -26,7 +27,7 @@ const statusToVariantMap: Record<
 }
 
 type Props = {
-  user: ReturnType<typeof useAuth> | undefined
+  user: User
 }
 
 export const Team: React.FC<Props> = ({ user }) => {
