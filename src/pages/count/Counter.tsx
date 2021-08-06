@@ -1,4 +1,6 @@
+import { useParams } from 'react-router-dom'
 import { Button } from 'components'
+import { db } from '../../firebase'
 
 type Props = {
   counter: number
@@ -6,13 +8,20 @@ type Props = {
 }
 
 export const Counter: React.FC<Props> = ({ counter, setCounter }) => {
+  const { room } = useParams<{ room: string }>()
+
   const increment = () => {
-    setCounter(counter + 1)
+    const count = counter + 1
+    setCounter(count)
+    db.collection('rooms').doc(room).update({ count })
   }
 
   const decrement = () => {
     if (counter === 0) return
-    setCounter(counter - 1)
+
+    const count = counter - 1
+    setCounter(count)
+    db.collection('rooms').doc(room).update({ count })
   }
 
   return (

@@ -5,6 +5,7 @@ import { Controls } from './Controls'
 import { Counter } from './Counter'
 import { CounterEdit } from './CounterEdit'
 import { User } from 'app.types'
+import { db } from '../../firebase'
 
 type Props = {
   user: User
@@ -17,6 +18,8 @@ export const CountPage: React.FC<Props> = ({ user }) => {
 
   const onCounterEdit = (newCounter: number) => {
     setCounter(newCounter)
+    db.collection('rooms').doc(room).update({ count: newCounter })
+
     setEditMode(false)
   }
 
