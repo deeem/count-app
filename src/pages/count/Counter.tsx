@@ -13,7 +13,7 @@ export const Counter: React.FC<Props> = ({ counter, setCounter }) => {
   const increment = () => {
     const count = counter + 1
     setCounter(count)
-    db.collection('rooms').doc(room).update({ count })
+    db.collection('rooms').doc(room).update({ counter: count })
   }
 
   const decrement = () => {
@@ -21,7 +21,7 @@ export const Counter: React.FC<Props> = ({ counter, setCounter }) => {
 
     const count = counter - 1
     setCounter(count)
-    db.collection('rooms').doc(room).update({ count })
+    db.collection('rooms').doc(room).update({ counter: count })
   }
 
   return (

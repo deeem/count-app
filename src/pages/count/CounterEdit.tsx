@@ -12,7 +12,7 @@ export const CounterEdit: React.FC<Props> = ({ counter, onChange }) => {
   const onInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     if (isNaN(+e.target.value)) return
 
-    setEditCounter(+e.target.value)
+    setEditCounter(Number(e.target.value))
   }
 
   const onSubmit = (e: React.SyntheticEvent) => {
@@ -26,7 +26,7 @@ export const CounterEdit: React.FC<Props> = ({ counter, onChange }) => {
       className="flex items-center justify-center space-x-4"
     >
       <input
-        value={editCounter}
+        value={String(editCounter)}
         onChange={onInputChange}
         className="w-12 px-2 py-1 text-center border border-blue-100"
       />

@@ -4,24 +4,32 @@ import { Team } from './Team'
 import { Controls } from './Controls'
 import { Counter } from './Counter'
 import { CounterEdit } from './CounterEdit'
-import { User } from 'app.types'
+import { Room, User } from 'app.types'
 import { db } from '../../firebase'
+import { useDocumentData } from 'react-firebase-hooks/firestore'
 
 type Props = {
   user: User
 }
 
 export const CountPage: React.FC<Props> = ({ user }) => {
-  const [counter, setCounter] = useState(0)
+  const [counter, setCounter] = useState<number | null>(null)
   const [editMode, setEditMode] = useState(false)
+
   const { room } = useParams<{ room: string }>()
+  const roomRef = db.collection('rooms').doc(room)
+  const [value, loading] = useDocumentData<Room, '', ''>(roomRef)
+
+  counter === null && value?.counter && setCounter(value.counter)
 
   const onCounterEdit = (newCounter: number) => {
     setCounter(newCounter)
-    db.collection('rooms').doc(room).update({ count: newCounter })
+    db.collection('rooms').doc(room).update({ counter: newCounter })
 
     setEditMode(false)
   }
+
+  if (loading) return null
 
   return (
     <>
@@ -31,9 +39,9 @@ export const CountPage: React.FC<Props> = ({ user }) => {
         </h3>
 
         {editMode ? (
-          <CounterEdit counter={counter} onChange={onCounterEdit} />
+          <CounterEdit counter={Number(counter)} onChange={onCounterEdit} />
         ) : (
-          <Counter counter={counter} setCounter={setCounter} />
+          <Counter counter={Number(counter)} setCounter={setCounter} />
         )}
       </div>
       <Team user={user} />

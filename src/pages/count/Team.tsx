@@ -40,7 +40,7 @@ export const Team: React.FC<Props> = ({ user }) => {
         {teammates.map(({ displayName, status }) => (
           <li
             className="flex items-center p-4 border-b border-b-1 last:border-b-0"
-            key={status}
+            key={displayName}
           >
             <span className="flex justify-start flex-1">{displayName}</span>
             <span className="flex justify-center flex-1">
