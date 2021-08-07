@@ -16,7 +16,7 @@ export const MainPage: React.FC<Props> = ({ user }) => {
       counter: 0,
       owner: db.collection('users').doc(user?.uid),
       active: db.collection('users').doc(user?.uid),
-      createdAt: new Date(),
+      created_at: new Date(),
     })
 
     history.push(`/${response.id}`)
