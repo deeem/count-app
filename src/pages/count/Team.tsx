@@ -1,6 +1,5 @@
 import { firebase } from 'firebase'
 import { Badge, Button } from 'components'
-import { User } from 'app.types'
 
 type TeamMate = Partial<firebase.UserInfo> & {
   status: 'active' | 'ready' | 'away'
@@ -26,11 +25,7 @@ const statusToVariantMap: Record<
   away: 'fuchsia',
 }
 
-type Props = {
-  user: User
-}
-
-export const Team: React.FC<Props> = ({ user }) => {
+export const Team = () => {
   return (
     <>
       <h3 className="pb-4 text-lg font-semibold tracking-widest text-center uppercase">

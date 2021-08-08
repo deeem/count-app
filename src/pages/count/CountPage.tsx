@@ -1,18 +1,14 @@
-import React, { useState } from 'react'
+import { useState } from 'react'
 import { useParams } from 'react-router-dom'
 import { Team } from './Team'
 import { Controls } from './Controls'
 import { Counter } from './Counter'
 import { CounterEdit } from './CounterEdit'
-import { Room, User } from 'app.types'
+import { Room } from 'app.types'
 import { db } from '../../firebase'
 import { useDocumentData } from 'react-firebase-hooks/firestore'
 
-type Props = {
-  user: User
-}
-
-export const CountPage: React.FC<Props> = ({ user }) => {
+export const CountPage = () => {
   const [counter, setCounter] = useState<number | null>(null)
   const [editMode, setEditMode] = useState(false)
 
@@ -44,7 +40,7 @@ export const CountPage: React.FC<Props> = ({ user }) => {
           <Counter counter={Number(counter)} setCounter={setCounter} />
         )}
       </div>
-      <Team user={user} />
+      <Team />
       <Controls editMode={editMode} setEditMode={setEditMode} />
     </>
   )

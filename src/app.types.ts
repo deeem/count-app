@@ -1,11 +1,14 @@
-import { useAuthState } from 'react-firebase-hooks/auth'
 import { firebase } from './firebase'
 
-export type User = ReturnType<typeof useAuthState>[0]
+export type User = {
+  uid: string
+  displayName: string | null
+  photoURL: string | null
+}
 
 export type Room = {
-  owner: firebase.firestore.DocumentReference<firebase.User>
-  active: firebase.firestore.DocumentReference<firebase.User>
+  owner: User
+  active: User
   counter: number
   created_at: firebase.firestore.Timestamp
 }

@@ -1,21 +1,18 @@
-import React from 'react'
 import { useHistory } from 'react-router-dom'
 import { db } from '../../firebase'
 import { Button } from 'components'
-import { User } from 'app.types'
+import { useContext } from 'react'
+import { UserContex } from 'userContext'
 
-type Props = {
-  user: User
-}
-
-export const MainPage: React.FC<Props> = ({ user }) => {
+export const MainPage = () => {
   const history = useHistory()
+  const user = useContext(UserContex)
 
   const createRoom = async () => {
     const response = await db.collection('rooms').add({
       counter: 0,
-      owner: db.collection('users').doc(user?.uid),
-      active: db.collection('users').doc(user?.uid),
+      owner: user,
+      active: user,
       created_at: new Date(),
     })
 
