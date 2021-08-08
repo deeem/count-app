@@ -11,7 +11,6 @@ import { useContext } from 'react'
 import { UserContex } from 'userContext'
 
 export const CountPage = () => {
-  const [counter, setCounter] = useState<number | null>(null)
   const [editMode, setEditMode] = useState(false)
   const user = useContext(UserContex)
 
@@ -22,14 +21,11 @@ export const CountPage = () => {
   })
   const room = roomData?.data()
 
-  counter === null && room?.counter && setCounter(room.counter)
-
   if (room?.owner.uid !== user.uid && room?.team && !inTeam(user, room.team)) {
-    roomRef.update({ team: [...room.team, { ...user, status: 'active' }] })
+    roomRef.update({ team: [...room.team, { ...user, status: 'ready' }] })
   }
 
   const onCounterEdit = (newCounter: number) => {
-    setCounter(newCounter)
     db.collection('rooms').doc(roomId).update({ counter: newCounter })
 
     editMode && setEditMode(false)
@@ -45,9 +41,9 @@ export const CountPage = () => {
         </h3>
 
         {editMode ? (
-          <CounterEdit counter={Number(counter)} onChange={onCounterEdit} />
+          <CounterEdit counter={room.counter} onChange={onCounterEdit} />
         ) : (
-          <Counter counter={Number(counter)} onChange={onCounterEdit} />
+          <Counter counter={room.counter} onChange={onCounterEdit} />
         )}
       </div>
       <Team team={room.team} />
