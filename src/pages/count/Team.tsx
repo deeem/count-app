@@ -1,14 +1,15 @@
 import { Badge, Button } from 'components'
 import { TeamMate } from 'app.types'
+import React from 'react'
 
-const teammates: TeamMate[] = [
-  { displayName: 'aaaa', status: 'active' },
-  { displayName: 'bbbb', status: 'ready' },
-  { displayName: 'cccc', status: 'ready' },
-  { displayName: 'dddd', status: 'ready' },
-  { displayName: 'eeee', status: 'away' },
-  { displayName: 'ffff', status: 'away' },
-]
+// const teammates: TeamMate[] = [
+//   { displayName: 'aaaa', status: 'active' },
+//   { displayName: 'bbbb', status: 'ready' },
+//   { displayName: 'cccc', status: 'ready' },
+//   { displayName: 'dddd', status: 'ready' },
+//   { displayName: 'eeee', status: 'away' },
+//   { displayName: 'ffff', status: 'away' },
+// ]
 
 const statusToVariantMap: Record<
   TeamMate['status'],
@@ -19,14 +20,18 @@ const statusToVariantMap: Record<
   away: 'fuchsia',
 }
 
-export const Team = () => {
+type Props = {
+  team: TeamMate[]
+}
+
+export const Team: React.FC<Props> = ({ team }) => {
   return (
     <>
       <h3 className="pb-4 text-lg font-semibold tracking-widest text-center uppercase">
         Team
       </h3>
       <ul className="max-w-screen-md mx-auto">
-        {teammates.map(({ displayName, status }) => (
+        {team.map(({ displayName, status }) => (
           <li
             className="flex items-center p-4 border-b border-b-1 last:border-b-0"
             key={displayName}

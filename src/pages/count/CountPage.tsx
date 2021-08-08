@@ -4,19 +4,29 @@ import { Team } from './Team'
 import { Controls } from './Controls'
 import { Counter } from './Counter'
 import { CounterEdit } from './CounterEdit'
-import { Room } from 'app.types'
+import { Room, TeamMate, User } from 'app.types'
 import { db } from '../../firebase'
-import { useDocumentData } from 'react-firebase-hooks/firestore'
+import { useDocument } from 'react-firebase-hooks/firestore'
+import { useContext } from 'react'
+import { UserContex } from 'userContext'
 
 export const CountPage = () => {
   const [counter, setCounter] = useState<number | null>(null)
   const [editMode, setEditMode] = useState(false)
+  const user = useContext(UserContex)
 
   const { room: roomId } = useParams<{ room: string }>()
   const roomRef = db.collection('rooms').doc(roomId)
-  const [room, loading] = useDocumentData<Room, '', ''>(roomRef)
+  const [roomData, loading] = useDocument<Room>(roomRef, {
+    snapshotListenOptions: { includeMetadataChanges: true },
+  })
+  const room = roomData?.data()
 
   counter === null && room?.counter && setCounter(room.counter)
+
+  if (room?.owner.uid !== user.uid && room?.team && !inTeam(user, room.team)) {
+    roomRef.update({ team: [...room.team, { ...user, status: 'active' }] })
+  }
 
   const onCounterEdit = (newCounter: number) => {
     setCounter(newCounter)
@@ -25,7 +35,7 @@ export const CountPage = () => {
     editMode && setEditMode(false)
   }
 
-  if (loading) return null
+  if (loading || !room?.team) return null
 
   return (
     <>
@@ -40,8 +50,12 @@ export const CountPage = () => {
           <Counter counter={Number(counter)} onChange={onCounterEdit} />
         )}
       </div>
-      <Team />
+      <Team team={room.team} />
       <Controls editMode={editMode} setEditMode={setEditMode} />
     </>
   )
+}
+
+const inTeam = (user: User, team: TeamMate[]) => {
+  return team.some((item) => item.uid === user.uid)
 }
