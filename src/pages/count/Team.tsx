@@ -1,13 +1,7 @@
-import { firebase } from 'firebase'
 import { Badge, Button } from 'components'
+import { TeamMate } from 'app.types'
 
-type TeamMate = Partial<firebase.UserInfo> & {
-  status: 'active' | 'ready' | 'away'
-}
-
-type TeamMates = TeamMate[]
-
-const teammates: TeamMates = [
+const teammates: TeamMate[] = [
   { displayName: 'aaaa', status: 'active' },
   { displayName: 'bbbb', status: 'ready' },
   { displayName: 'cccc', status: 'ready' },

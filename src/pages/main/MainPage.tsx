@@ -13,6 +13,7 @@ export const MainPage = () => {
       counter: 0,
       owner: user,
       active: user,
+      team: [{ ...user, status: 'active' }],
       created_at: new Date(),
     })
 

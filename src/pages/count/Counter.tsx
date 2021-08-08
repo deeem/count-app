@@ -1,27 +1,21 @@
-import { useParams } from 'react-router-dom'
 import { Button } from 'components'
-import { db } from '../../firebase'
 
 type Props = {
   counter: number
-  setCounter: (counter: number) => void
+  onChange: (counter: number) => void
 }
 
-export const Counter: React.FC<Props> = ({ counter, setCounter }) => {
-  const { room } = useParams<{ room: string }>()
-
+export const Counter: React.FC<Props> = ({ counter, onChange }) => {
   const increment = () => {
     const count = counter + 1
-    setCounter(count)
-    db.collection('rooms').doc(room).update({ counter: count })
+    onChange(count)
   }
 
   const decrement = () => {
     if (counter === 0) return
 
     const count = counter - 1
-    setCounter(count)
-    db.collection('rooms').doc(room).update({ counter: count })
+    onChange(count)
   }
 
   return (

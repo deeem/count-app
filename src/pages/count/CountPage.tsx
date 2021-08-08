@@ -12,17 +12,17 @@ export const CountPage = () => {
   const [counter, setCounter] = useState<number | null>(null)
   const [editMode, setEditMode] = useState(false)
 
-  const { room } = useParams<{ room: string }>()
-  const roomRef = db.collection('rooms').doc(room)
-  const [value, loading] = useDocumentData<Room, '', ''>(roomRef)
+  const { room: roomId } = useParams<{ room: string }>()
+  const roomRef = db.collection('rooms').doc(roomId)
+  const [room, loading] = useDocumentData<Room, '', ''>(roomRef)
 
-  counter === null && value?.counter && setCounter(value.counter)
+  counter === null && room?.counter && setCounter(room.counter)
 
   const onCounterEdit = (newCounter: number) => {
     setCounter(newCounter)
-    db.collection('rooms').doc(room).update({ counter: newCounter })
+    db.collection('rooms').doc(roomId).update({ counter: newCounter })
 
-    setEditMode(false)
+    editMode && setEditMode(false)
   }
 
   if (loading) return null
@@ -37,7 +37,7 @@ export const CountPage = () => {
         {editMode ? (
           <CounterEdit counter={Number(counter)} onChange={onCounterEdit} />
         ) : (
-          <Counter counter={Number(counter)} setCounter={setCounter} />
+          <Counter counter={Number(counter)} onChange={onCounterEdit} />
         )}
       </div>
       <Team />
