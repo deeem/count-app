@@ -1,6 +1,8 @@
 import { Badge, Button } from 'components'
 import { TeamMate } from 'app.types'
 import React from 'react'
+import { useContext } from 'react'
+import { UserContex } from 'userContext'
 
 // const teammates: TeamMate[] = [
 //   { displayName: 'aaaa', status: 'active' },
@@ -26,13 +28,15 @@ type Props = {
 }
 
 export const Team: React.FC<Props> = ({ team, isActive }) => {
+  const user = useContext(UserContex)
+
   return (
     <>
       <h3 className="pb-4 text-lg font-semibold tracking-widest text-center uppercase">
         Team
       </h3>
       <ul className="max-w-screen-md mx-auto">
-        {team.map(({ displayName, status, photoURL }) => (
+        {team.map(({ displayName, status, photoURL, uid }) => (
           <li
             className="flex items-center p-4 border-b border-b-1 last:border-b-0"
             key={displayName}
@@ -45,7 +49,7 @@ export const Team: React.FC<Props> = ({ team, isActive }) => {
                   className="mr-4 rounded-full w-9 h-9"
                 />
               </span>
-              {displayName}
+              {displayName} {user.uid === uid ? ' (You)' : ''}
             </span>
             <span className="flex justify-center flex-1">
               {status === 'ready' && (
