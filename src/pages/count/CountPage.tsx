@@ -21,6 +21,10 @@ export const CountPage = () => {
   })
   const room = roomData?.data()
 
+  const isActive = room?.team.some(
+    (item) => item.status === 'active' && item.uid === user.uid
+  )
+
   if (room?.owner.uid !== user.uid && room?.team && !inTeam(user, room.team)) {
     roomRef.update({ team: [...room.team, { ...user, status: 'ready' }] })
   }
@@ -43,11 +47,19 @@ export const CountPage = () => {
         {editMode ? (
           <CounterEdit counter={room.counter} onChange={onCounterEdit} />
         ) : (
-          <Counter counter={room.counter} onChange={onCounterEdit} />
+          <Counter
+            counter={room.counter}
+            onChange={onCounterEdit}
+            isActive={isActive}
+          />
         )}
       </div>
-      <Team team={room.team} />
-      <Controls editMode={editMode} setEditMode={setEditMode} />
+      <Team team={room.team} isActive={isActive} />
+      <Controls
+        editMode={editMode}
+        setEditMode={setEditMode}
+        isActive={isActive}
+      />
     </>
   )
 }

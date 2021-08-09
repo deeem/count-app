@@ -21,10 +21,11 @@ const statusToVariantMap: Record<
 }
 
 type Props = {
+  isActive: boolean | undefined
   team: TeamMate[]
 }
 
-export const Team: React.FC<Props> = ({ team }) => {
+export const Team: React.FC<Props> = ({ team, isActive }) => {
   return (
     <>
       <h3 className="pb-4 text-lg font-semibold tracking-widest text-center uppercase">
@@ -48,7 +49,7 @@ export const Team: React.FC<Props> = ({ team }) => {
             </span>
             <span className="flex justify-center flex-1">
               {status === 'ready' && (
-                <Button variant="outline" color="gray">
+                <Button variant="outline" color="gray" disabled={!isActive}>
                   set active
                 </Button>
               )}

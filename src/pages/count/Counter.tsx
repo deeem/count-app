@@ -2,10 +2,11 @@ import { Button } from 'components'
 
 type Props = {
   counter: number
+  isActive: boolean | undefined
   onChange: (counter: number) => void
 }
 
-export const Counter: React.FC<Props> = ({ counter, onChange }) => {
+export const Counter: React.FC<Props> = ({ counter, isActive, onChange }) => {
   const increment = () => {
     const count = counter + 1
     onChange(count)
@@ -24,12 +25,17 @@ export const Counter: React.FC<Props> = ({ counter, onChange }) => {
         variant="outline"
         color="red"
         onClick={decrement}
-        disabled={counter === 0}
+        disabled={counter === 0 || !isActive}
       >
         -
       </Button>
       <span className="text-lg font-bold">{counter}</span>
-      <Button variant="outline" color="blue" onClick={increment}>
+      <Button
+        variant="outline"
+        color="blue"
+        onClick={increment}
+        disabled={!isActive}
+      >
         +
       </Button>
     </div>

@@ -3,10 +3,15 @@ import React from 'react'
 
 interface Props {
   editMode: boolean
+  isActive: boolean | undefined
   setEditMode: (editMode: boolean) => void
 }
 
-export const Controls: React.FC<Props> = ({ editMode, setEditMode }) => {
+export const Controls: React.FC<Props> = ({
+  editMode,
+  isActive,
+  setEditMode,
+}) => {
   const switchToEdit = () => {
     setEditMode(true)
   }
@@ -17,7 +22,7 @@ export const Controls: React.FC<Props> = ({ editMode, setEditMode }) => {
         variant="outline"
         color="blue"
         onClick={switchToEdit}
-        disabled={editMode}
+        disabled={editMode || !isActive}
       >
         edit counter
       </Button>
