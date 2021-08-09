@@ -31,21 +31,30 @@ export const Team: React.FC<Props> = ({ team }) => {
         Team
       </h3>
       <ul className="max-w-screen-md mx-auto">
-        {team.map(({ displayName, status }) => (
+        {team.map(({ displayName, status, photoURL }) => (
           <li
             className="flex items-center p-4 border-b border-b-1 last:border-b-0"
             key={displayName}
           >
-            <span className="flex justify-start flex-1">{displayName}</span>
-            <span className="flex justify-center flex-1">
-              <Badge variant={statusToVariantMap[status]}>{status}</Badge>
+            <span className="flex items-center justify-start flex-1">
+              <span>
+                <img
+                  src={String(photoURL)}
+                  alt="avatar"
+                  className="mr-4 rounded-full w-9 h-9"
+                />
+              </span>
+              {displayName}
             </span>
-            <span className="flex justify-end flex-1">
+            <span className="flex justify-center flex-1">
               {status === 'ready' && (
                 <Button variant="outline" color="gray">
                   set active
                 </Button>
               )}
+            </span>
+            <span className="flex justify-end flex-1">
+              <Badge variant={statusToVariantMap[status]}>{status}</Badge>
             </span>
           </li>
         ))}
