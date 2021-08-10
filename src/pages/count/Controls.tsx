@@ -30,9 +30,6 @@ export const Controls: React.FC<Props> = ({
           edit counter
         </Button>
       )}
-      <Button variant="outline" color="gray">
-        set status away
-      </Button>
     </div>
   )
 }

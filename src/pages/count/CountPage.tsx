@@ -35,6 +35,8 @@ export const CountPage = () => {
     editMode && setEditMode(false)
   }
 
+  const isOwner = user.uid === room?.owner.uid
+
   if (loading || !room?.team) return null
 
   return (
@@ -51,17 +53,19 @@ export const CountPage = () => {
             counter={room.counter}
             onChange={onCounterEdit}
             isActive={isActive}
-            isOwner={user.uid === room.owner.uid}
+            isOwner={isOwner}
           />
         )}
+
+        <Controls
+          editMode={editMode}
+          setEditMode={setEditMode}
+          isActive={isActive}
+          isOwner={isOwner}
+        />
       </div>
-      <Team isActive={isActive} room={room} />
-      <Controls
-        editMode={editMode}
-        setEditMode={setEditMode}
-        isActive={isActive}
-        isOwner={user.uid === room.owner.uid}
-      />
+
+      <Team isActive={isActive} room={room} isOwner={isOwner} />
     </>
   )
 }

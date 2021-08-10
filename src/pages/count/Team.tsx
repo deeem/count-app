@@ -17,12 +17,15 @@ const statusToVariantMap: Record<
 
 type Props = {
   isActive: boolean | undefined
+  isOwner: boolean
   room: Room
 }
 
-export const Team: React.FC<Props> = ({ room, isActive }) => {
+export const Team: React.FC<Props> = ({ room, isActive, isOwner }) => {
   const { room: roomId } = useParams<{ room: string }>()
   const user = useContext(UserContex)
+
+  const canSetStatus = isOwner || isActive
 
   const setStatus = (
     teammate: TeamMate,
@@ -54,11 +57,34 @@ export const Team: React.FC<Props> = ({ room, isActive }) => {
               {item.displayName} {user.uid === item.uid ? ' (You)' : ''}
             </span>
             <span className="flex justify-center flex-1">
-              {item.status === 'ready' && (
+              {user.uid === item.uid && item.status === 'ready' && (
                 <Button
                   variant="outline"
                   color="gray"
-                  disabled={!isActive}
+                  onClick={() => {
+                    setStatus(item, 'away')
+                  }}
+                >
+                  set status 'away'
+                </Button>
+              )}
+
+              {user.uid === item.uid && item.status === 'away' && (
+                <Button
+                  variant="outline"
+                  color="gray"
+                  onClick={() => {
+                    setStatus(item, 'ready')
+                  }}
+                >
+                  set status 'ready'
+                </Button>
+              )}
+
+              {canSetStatus && item.status === 'ready' && (
+                <Button
+                  variant="outline"
+                  color="gray"
                   onClick={() => {
                     setStatus(item, 'active')
                   }}
