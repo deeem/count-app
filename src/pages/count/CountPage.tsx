@@ -54,7 +54,7 @@ export const CountPage = () => {
           />
         )}
       </div>
-      <Team team={room.team} isActive={isActive} />
+      <Team isActive={isActive} room={room} />
       <Controls
         editMode={editMode}
         setEditMode={setEditMode}

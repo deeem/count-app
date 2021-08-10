@@ -29,9 +29,6 @@ export const Controls: React.FC<Props> = ({
       <Button variant="outline" color="gray">
         set status away
       </Button>
-      <Button variant="outline" color="red">
-        leave room
-      </Button>
     </div>
   )
 }
