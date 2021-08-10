@@ -51,6 +51,7 @@ export const CountPage = () => {
             counter={room.counter}
             onChange={onCounterEdit}
             isActive={isActive}
+            isOwner={user.uid === room.owner.uid}
           />
         )}
       </div>
@@ -59,6 +60,7 @@ export const CountPage = () => {
         editMode={editMode}
         setEditMode={setEditMode}
         isActive={isActive}
+        isOwner={user.uid === room.owner.uid}
       />
     </>
   )
