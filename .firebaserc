@@ -1,5 +1,6 @@
 {
   "projects": {
-    "default": "count-app-91a2f"
+    "default": "count-app-91a2f",
+    "local": "count-app-91a2f"
   }
 }

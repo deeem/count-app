@@ -23,6 +23,7 @@
   "scripts": {
     "start": "craco start",
     "build": "craco build",
+    "build:dev":"env-cmd -f .env.local npm run build && firebase deploy -P local",
     "test": "craco test",
     "eject": "react-scripts eject",
     "storybook": "start-storybook -p 6006 -s public",
@@ -65,6 +66,7 @@
     "@storybook/react": "^6.3.5",
     "@types/react-router-dom": "^5.1.8",
     "autoprefixer": "^9.8.6",
+    "env-cmd": "^10.1.0",
     "postcss": "^7.0.36",
     "tailwindcss": "npm:@tailwindcss/postcss7-compat@^2.2.7"
   }
