@@ -9,7 +9,8 @@ function App() {
 
   // console.log({ user, loading })
 
-  if (!user || loading) return <LoginPage />
+  if (loading) return null
+  if (!user) return <LoginPage />
 
   return (
     <UserContex.Provider

@@ -10,6 +10,7 @@ function LoginPage() {
 
     try {
       await firebase.auth().signInWithPopup(provder)
+      // redirect to prev page
     } catch (error) {
       setAuthError(error)
     }

@@ -1,12 +1,15 @@
 import { useHistory } from 'react-router-dom'
 import { db } from '../../firebase'
 import { Button } from 'components'
-import { useContext } from 'react'
-import { UserContex } from 'userContext'
+import { useAuthState } from 'react-firebase-hooks/auth'
+import { firebase } from '../../firebase'
+import { LoginPage } from 'pages/login/LoginPage'
 
 export const MainPage = () => {
   const history = useHistory()
-  const user = useContext(UserContex)
+  const [user, loading] = useAuthState(firebase.auth())
+  if (loading) return null
+  if (!user) return <LoginPage />
 
   const createRoom = async () => {
     const response = await db.collection('rooms').add({
