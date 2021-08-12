@@ -1,36 +1,22 @@
-import { useAuthState } from 'react-firebase-hooks/auth'
 import { CountPage, MainPage, LoginPage } from 'pages'
 import { BrowserRouter as Router, Switch, Route } from 'react-router-dom'
-import { firebase } from './firebase'
-import { UserContex } from 'userContext'
+import { PrivateRoute } from 'pages/main/PrivateRoute'
 
 function App() {
-  const [user, loading] = useAuthState(firebase.auth())
-
-  // console.log({ user, loading })
-
-  if (loading) return null
-  if (!user) return <LoginPage />
-
   return (
-    <UserContex.Provider
-      value={{
-        uid: user.uid,
-        displayName: user.displayName,
-        photoURL: user.photoURL,
-      }}
-    >
-      <Router>
-        <Switch>
-          <Route path="/:room">
-            <CountPage />
-          </Route>
-          <Route path="/" exact>
-            <MainPage />
-          </Route>
-        </Switch>
-      </Router>
-    </UserContex.Provider>
+    <Router>
+      <Switch>
+        <Route path="/login" exact>
+          <LoginPage />
+        </Route>
+        <PrivateRoute path="/:room">
+          <CountPage />
+        </PrivateRoute>
+        <PrivateRoute path="/" exact>
+          <MainPage />
+        </PrivateRoute>
+      </Switch>
+    </Router>
   )
 }
 
