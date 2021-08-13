@@ -1,16 +1,18 @@
 import { firebase } from '../../firebase'
 import { useState } from 'react'
 import { Button } from 'components'
+import { useHistory } from 'react-router-dom'
 
 function LoginPage() {
   const [authError, setAuthError] = useState<Error | null>(null)
+  const history = useHistory<{ returnUri: string }>()
 
   const handleSignIn = async () => {
     const provder = new firebase.auth.GoogleAuthProvider()
 
     try {
       await firebase.auth().signInWithPopup(provder)
-      // redirect to prev page
+      history.push(history.location.state.returnUri)
     } catch (error) {
       setAuthError(error)
     }

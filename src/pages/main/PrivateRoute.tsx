@@ -1,5 +1,5 @@
 import { useAuthState } from 'react-firebase-hooks/auth'
-import { Redirect, Route, RouteProps } from 'react-router-dom'
+import { Route, RouteProps, useHistory, useLocation } from 'react-router-dom'
 import { UserContex } from 'userContext'
 import { firebase } from '../../firebase'
 
@@ -10,12 +10,18 @@ type Props = {
 export const PrivateRoute: React.FC<Props> = ({ children, ...rest }) => {
   const [user, loading] = useAuthState(firebase.auth())
 
+  const location = useLocation<{ returnUri: string }>()
+  const history = useHistory()
+
   return (
     <Route
       {...rest}
       render={() => {
         if (loading) return null
-        if (!user) return <Redirect to="/login" />
+        if (!user) {
+          history.push('/login', { returnUri: location.pathname })
+          return
+        }
 
         return (
           <UserContex.Provider
