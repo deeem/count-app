@@ -1,9 +1,6 @@
-import { useState } from 'react'
 import { useParams } from 'react-router-dom'
 import { Team } from './Team'
-import { Controls } from './Controls'
 import { Counter } from './Counter'
-import { CounterEdit } from './CounterEdit'
 import { Room, TeamMate, User } from 'app.types'
 import { db } from '../../firebase'
 import { useDocument } from 'react-firebase-hooks/firestore'
@@ -11,31 +8,18 @@ import { useContext } from 'react'
 import { UserContex } from 'userContext'
 
 export const CountPage = () => {
-  const [editMode, setEditMode] = useState(false)
   const user = useContext(UserContex)
-
   const { room: roomId } = useParams<{ room: string }>()
   const roomRef = db.collection('rooms').doc(roomId)
-  const [roomData, loading] = useDocument<Room>(roomRef, {
-    snapshotListenOptions: { includeMetadataChanges: true },
-  })
+  const [roomData, loading] = useDocument<Room>(roomRef)
   const room = roomData?.data()
 
-  const isActive = room?.team.some(
-    (item) => item.status === 'active' && item.uid === user.uid
-  )
+  const isActive = isUserActive(user, room?.team)
+  const isOwner = user.uid === room?.owner.uid
 
   if (room?.owner.uid !== user.uid && room?.team && !inTeam(user, room.team)) {
     roomRef.update({ team: [...room.team, { ...user, status: 'ready' }] })
   }
-
-  const onCounterEdit = (newCounter: number) => {
-    db.collection('rooms').doc(roomId).update({ counter: newCounter })
-
-    editMode && setEditMode(false)
-  }
-
-  const isOwner = user.uid === room?.owner.uid
 
   if (loading || !room?.team) return null
 
@@ -46,23 +30,7 @@ export const CountPage = () => {
           Score
         </h3>
 
-        {editMode ? (
-          <CounterEdit counter={room.counter} onChange={onCounterEdit} />
-        ) : (
-          <Counter
-            counter={room.counter}
-            onChange={onCounterEdit}
-            isActive={isActive}
-            isOwner={isOwner}
-          />
-        )}
-
-        <Controls
-          editMode={editMode}
-          setEditMode={setEditMode}
-          isActive={isActive}
-          isOwner={isOwner}
-        />
+        <Counter value={room.counter} isEditable={isActive || isOwner} />
       </div>
 
       <Team isActive={isActive} room={room} isOwner={isOwner} />
@@ -72,4 +40,8 @@ export const CountPage = () => {
 
 const inTeam = (user: User, team: TeamMate[]) => {
   return team.some((item) => item.uid === user.uid)
+}
+
+const isUserActive = (user: User, team: TeamMate[] = []) => {
+  return team.some((item) => item.status === 'active' && item.uid === user.uid)
 }
