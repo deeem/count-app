@@ -1,10 +1,10 @@
-import { TeamMate } from 'app.types'
+import { TeamMate, TeamMateStatus } from 'app.types'
 import { firebase } from '../../firebase'
 
 export const setTeammateStatus = (
   team: TeamMate[],
   teammate: TeamMate,
-  status: 'active' | 'ready' | 'away',
+  status: TeamMateStatus,
   roomRef: firebase.firestore.DocumentReference<firebase.firestore.DocumentData>
 ) => {
   const newTeam = updateStatus(teammate, status, team)
@@ -13,7 +13,7 @@ export const setTeammateStatus = (
 
 const updateStatus = (
   teammate: TeamMate,
-  newStatus: 'active' | 'ready' | 'away',
+  newStatus: TeamMateStatus,
   team: TeamMate[]
 ) => {
   const newTeam = [...team]

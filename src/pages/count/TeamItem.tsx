@@ -1,4 +1,4 @@
-import { TeamMate } from 'app.types'
+import { TeamMate, TeamMateStatus } from 'app.types'
 import { Badge, Button } from 'components'
 
 const statusToVariantMap: Record<
@@ -14,7 +14,7 @@ type Props = {
   item: TeamMate
   isYou: boolean
   canSetStatus: boolean
-  setStatus: (teammate: TeamMate, status: 'active' | 'ready' | 'away') => void
+  setStatus: (teammate: TeamMate, status: TeamMateStatus) => void
 }
 
 export const TeamItem: React.FC<Props> = ({
