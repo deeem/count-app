@@ -25,6 +25,16 @@ export const CountPage = () => {
 
   return (
     <>
+      <div className="flex items-center p-3 text-white bg-blue-600">
+        <span>
+          <img
+            src={String(user.photoURL)}
+            alt="avatar"
+            className="w-12 h-12 mr-4 border-2 rounded-full"
+          />
+        </span>
+        <span>{user.displayName}</span>
+      </div>
       <div className="mt-12 mb-8">
         <h3 className="mb-4 text-lg font-semibold tracking-widest text-center uppercase">
           Score
