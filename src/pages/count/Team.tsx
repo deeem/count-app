@@ -1,8 +1,9 @@
+import { setTeammateStatus } from './setTeammateStatus'
 import { TeamItem } from './TeamItem'
 import { useRoom } from './useRoom'
 
 export const Team = () => {
-  const { user, room, canUserSetStatus, setTeammateStatus } = useRoom()
+  const { user, room, roomRef, canUserSetStatus } = useRoom()
 
   return (
     <>
@@ -20,7 +21,9 @@ export const Team = () => {
                 item={item}
                 isYou={user.uid === item.uid}
                 canSetStatus={Boolean(canUserSetStatus)}
-                setStatus={setTeammateStatus}
+                setStatus={(teammate, status) =>
+                  setTeammateStatus(room.team, teammate, status, roomRef)
+                }
               />
             </li>
           ))}
