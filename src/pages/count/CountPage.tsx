@@ -8,7 +8,6 @@ export const CountPage = () => {
     room,
     user,
     roomRef,
-    isUserActive,
     isUserOwner,
     isUserTeammate,
   } = useRoom()
@@ -36,10 +35,7 @@ export const CountPage = () => {
           Score
         </h3>
 
-        <Counter
-          value={room.counter}
-          isEditable={isUserActive || isUserOwner}
-        />
+        <Counter />
       </div>
 
       <Team />
