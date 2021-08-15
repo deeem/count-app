@@ -43,7 +43,7 @@ export const CountPage = () => {
         <Counter value={room.counter} isEditable={isActive || isOwner} />
       </div>
 
-      <Team isActive={isActive} room={room} isOwner={isOwner} />
+      <Team />
     </>
   )
 }
