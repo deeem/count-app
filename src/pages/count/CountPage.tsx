@@ -26,15 +26,20 @@ export const CountPage = () => {
 
   return (
     <>
-      <div className="flex items-center p-3 text-white bg-blue-600">
-        <TeamItem
-          item={you}
-          isYou={true}
-          canSetStatus={Boolean(canUserSetStatus)}
-          setStatus={(teammate, status) =>
-            setTeammateStatus(room.team, teammate, status, roomRef)
-          }
-        />
+      <div className="bg-violet-900">
+        <div className="max-w-screen-sm mx-auto ">
+          <div className="p-3 text-white ">
+            <TeamItem
+              item={you}
+              isYou={true}
+              isOwner={isUserOwner}
+              canSetStatus={Boolean(canUserSetStatus)}
+              setStatus={(teammate, status) =>
+                setTeammateStatus(room.team, teammate, status, roomRef)
+              }
+            />
+          </div>
+        </div>
       </div>
       <div className="mt-12 mb-8">
         <h3 className="mb-4 text-lg font-semibold tracking-widest text-center uppercase">
