@@ -86,7 +86,7 @@ export class PresenceSubscriber {
             var msg = 'User ' + change.doc.id + ' is online.'
             console.log(msg)
             // ...
-            setTeammateStatus(team, changedUserId, 'ready', roomRef)
+            setTeammateStatus(team, changedUserId, 'online', roomRef)
           }
           if (change.type === 'removed') {
             var msg = 'User ' + change.doc.id + ' is offline.'

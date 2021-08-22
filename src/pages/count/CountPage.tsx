@@ -25,7 +25,7 @@ export const CountPage = () => {
   presense.subscribe(room.team, roomRef, roomId)
 
   if (!isUserOwner && !isUserTeammate) {
-    roomRef.update({ team: [...room.team, { ...user, status: 'ready' }] })
+    roomRef.update({ team: [...room.team, { ...user, status: 'online' }] })
   }
 
   return (

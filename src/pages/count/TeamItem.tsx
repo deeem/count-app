@@ -17,7 +17,9 @@ export const TeamItem: React.FC<Props> = ({
   canSetStatus,
   setStatus,
 }) => {
-  const { roomRef, room } = useRoom()
+  const { roomRef, room, loading } = useRoom()
+
+  if (loading) return null
 
   const setActive = (teammate: TeamMate) => {
     roomRef.update({ active: { ...teammate } })
@@ -47,7 +49,7 @@ export const TeamItem: React.FC<Props> = ({
         </div>
       </span>
       <span className="flex items-center justify-center">
-        {isYou && item.status === 'ready' && (
+        {isYou && item.status === 'online' && (
           <Button
             variant="outline"
             color="gray"
@@ -64,15 +66,15 @@ export const TeamItem: React.FC<Props> = ({
             variant="outline"
             color="gray"
             onClick={() => {
-              setStatus(item, 'ready')
+              setStatus(item, 'online')
             }}
           >
-            set status 'ready'
+            set status 'online'
           </Button>
         )}
 
         {canSetStatus &&
-          item.status === 'ready' &&
+          item.status === 'online' &&
           item.uid !== room?.active.uid && (
             <Button
               variant="outline"
