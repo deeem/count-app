@@ -4,7 +4,7 @@ import { TeamItem } from './TeamItem'
 import { useRoom } from './useRoom'
 
 export const Team = () => {
-  const { user, room, roomRef, canUserSetStatus } = useRoom()
+  const { user, room, roomRef, isUserAbleToSetActive } = useRoom()
 
   if (!room || !user) return null
 
@@ -25,7 +25,7 @@ export const Team = () => {
               item={item}
               isYou={user.uid === item.uid}
               isOwner={room.owner.uid === item.uid}
-              canSetStatus={Boolean(canUserSetStatus)}
+              canSetStatus={Boolean(isUserAbleToSetActive)}
               setStatus={(teammate, status) =>
                 setTeammateStatus(
                   room.team,

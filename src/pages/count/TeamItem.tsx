@@ -1,5 +1,6 @@
 import { TeamMate, TeamMateStatus } from 'app.types'
 import { Button } from 'components'
+import { useRoom } from './useRoom'
 
 type Props = {
   item: TeamMate
@@ -16,6 +17,12 @@ export const TeamItem: React.FC<Props> = ({
   canSetStatus,
   setStatus,
 }) => {
+  const { roomRef, room } = useRoom()
+
+  const setActive = (teammate: TeamMate) => {
+    roomRef.update({ active: { ...teammate } })
+  }
+
   return (
     <div className="flex items-center justify-between">
       <span className="flex items-center justify-start">
@@ -29,7 +36,13 @@ export const TeamItem: React.FC<Props> = ({
         <div>
           <p className="font-semibold">{item.displayName}</p>
           <p>
-            {item.status} {isOwner && ' - owner'}
+            {[
+              item.status,
+              item.uid === room?.owner.uid && 'owner',
+              item.uid === room?.active.uid && 'active',
+            ]
+              .filter(Boolean)
+              .join(' • ')}
           </p>
         </div>
       </span>
@@ -58,17 +71,19 @@ export const TeamItem: React.FC<Props> = ({
           </Button>
         )}
 
-        {canSetStatus && item.status === 'ready' && (
-          <Button
-            variant="outline"
-            color="gray"
-            onClick={() => {
-              setStatus(item, 'active')
-            }}
-          >
-            set active
-          </Button>
-        )}
+        {canSetStatus &&
+          item.status === 'ready' &&
+          item.uid !== room?.active.uid && (
+            <Button
+              variant="outline"
+              color="gray"
+              onClick={() => {
+                setActive(item)
+              }}
+            >
+              set active
+            </Button>
+          )}
       </span>
     </div>
   )

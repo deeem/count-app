@@ -19,12 +19,6 @@ const updateStatus = (
   const newTeam = [...team]
   const teammateIndex = team.findIndex((item) => item.uid === uid)
 
-  // before set 'active' status to new user, we should remove this status from current 'active' user
-  if (newStatus === 'active') {
-    const prevActiveIndex = team.findIndex((item) => item.status === 'active')
-    newTeam[prevActiveIndex] = { ...team[prevActiveIndex], status: 'ready' }
-  }
-
   newTeam[teammateIndex] = { ...team[teammateIndex], status: newStatus }
 
   return newTeam

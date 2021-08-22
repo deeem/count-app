@@ -12,10 +12,10 @@ export const useRoom = () => {
   const [roomData, loading] = useDocument<Room>(roomRef)
   const room = roomData?.data()
 
-  const isUserActive = checkIsUserActive(user, room?.team)
+  const isUserActive = user.uid === room?.active.uid
   const isUserOwner = user.uid === room?.owner.uid
   const isUserTeammate = checkIsUserInTeam(user, room?.team)
-  const canUserSetStatus = isUserOwner || isUserActive
+  const isUserAbleToSetActive = isUserOwner || isUserActive
 
   return {
     loading,
@@ -26,14 +26,10 @@ export const useRoom = () => {
     isUserActive,
     isUserOwner,
     isUserTeammate,
-    canUserSetStatus,
+    isUserAbleToSetActive,
   }
 }
 
 const checkIsUserInTeam = (user: User, team: TeamMate[] = []) => {
   return team.some((item) => item.uid === user.uid)
-}
-
-const checkIsUserActive = (user: User, team: TeamMate[] = []) => {
-  return team.some((item) => item.status === 'active' && item.uid === user.uid)
 }

@@ -15,7 +15,7 @@ export const CountPage = () => {
     roomId,
     isUserOwner,
     isUserTeammate,
-    canUserSetStatus,
+    isUserAbleToSetActive,
   } = useRoom()
 
   if (loading || !room?.team) return null
@@ -37,7 +37,7 @@ export const CountPage = () => {
               item={you}
               isYou={true}
               isOwner={isUserOwner}
-              canSetStatus={Boolean(canUserSetStatus)}
+              canSetStatus={Boolean(isUserAbleToSetActive)}
               setStatus={(teammate, status) =>
                 setTeammateStatus(
                   room.team,
