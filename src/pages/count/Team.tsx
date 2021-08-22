@@ -27,7 +27,12 @@ export const Team = () => {
               isOwner={room.owner.uid === item.uid}
               canSetStatus={Boolean(canUserSetStatus)}
               setStatus={(teammate, status) =>
-                setTeammateStatus(room.team, teammate, status, roomRef)
+                setTeammateStatus(
+                  room.team,
+                  teammate.uid as string,
+                  status,
+                  roomRef
+                )
               }
             />
           </li>

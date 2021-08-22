@@ -22,6 +22,7 @@ export const useRoom = () => {
     room,
     user,
     roomRef,
+    roomId,
     isUserActive,
     isUserOwner,
     isUserTeammate,
