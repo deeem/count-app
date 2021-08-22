@@ -1,6 +1,8 @@
 import firebase from 'firebase/app'
+import 'firebase/database'
 import 'firebase/firestore'
 import 'firebase/auth'
+import 'firebase/functions'
 
 const firebaseConfig = {
   apiKey: process.env.REACT_APP_apiKey,
@@ -12,12 +14,19 @@ const firebaseConfig = {
   appId: process.env.REACT_APP_appId,
 }
 
-console.log({ firebase })
-
 if (!firebase.apps.length) {
   firebase.initializeApp(firebaseConfig)
+
+  // uncomment to run in emulator
+  // setupEmulator()
 }
 
 const db = firebase.firestore()
 
 export { db, firebase }
+
+const setupEmulator = () => {
+  firebase.database().useEmulator('localhost', 9000)
+  firebase.firestore().useEmulator('localhost', 8080)
+  firebase.functions().useEmulator('localhost', 5001)
+}
