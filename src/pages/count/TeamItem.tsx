@@ -1,5 +1,6 @@
 import { TeamMate, TeamMateStatus } from 'app.types'
 import { Button } from 'components'
+import { Avatar } from 'components/Avatar'
 import { useRoom } from './useRoom'
 
 type Props = {
@@ -28,13 +29,11 @@ export const TeamItem: React.FC<Props> = ({
   return (
     <div className="flex items-center justify-between">
       <span className="flex items-center justify-start">
-        <div>
-          <img
-            src={String(item.photoURL)}
-            alt="avatar"
-            className="w-12 h-12 mr-4 rounded-full"
-          />
-        </div>
+        <Avatar
+          photoURL={String(item.photoURL)}
+          status={item.status}
+          isActive={item.uid === room?.active.uid}
+        />
         <div>
           <p className="font-semibold">{item.displayName}</p>
           <p>

@@ -7,11 +7,9 @@ const firestore = admin.firestore()
 const setStatus = (uid: string, status: string, currentRoom: any) => {
   const room = { ...currentRoom }
   const teammateIndex = room.team.findIndex((item: any) => item.uid === uid)
-  const currentStatus = room.team[teammateIndex].status
-  const isOwner = room.owner.uid === uid
+  // const currentStatus = room.team[teammateIndex].status
+  // const isOwner = room.owner.uid === uid
   const isAcitve = room.active.uid === uid
-
-  console.log({ isAcitve, isOwner, currentStatus })
 
   const newTeam = [...room.team]
 
