@@ -24,7 +24,7 @@ if (!firebase.apps.length) {
   firebase.initializeApp(firebaseConfig)
 
   // uncomment to run in emulator
-  setupEmulator()
+  // setupEmulator()
 }
 
 const db = firebase.firestore()
