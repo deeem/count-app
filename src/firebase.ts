@@ -14,19 +14,19 @@ const firebaseConfig = {
   appId: process.env.REACT_APP_appId,
 }
 
-if (!firebase.apps.length) {
-  firebase.initializeApp(firebaseConfig)
-
-  // uncomment to run in emulator
-  // setupEmulator()
-}
-
-const db = firebase.firestore()
-
-export { db, firebase }
-
 const setupEmulator = () => {
   firebase.database().useEmulator('localhost', 9000)
   firebase.firestore().useEmulator('localhost', 8080)
   firebase.functions().useEmulator('localhost', 5001)
 }
+
+if (!firebase.apps.length) {
+  firebase.initializeApp(firebaseConfig)
+
+  // uncomment to run in emulator
+  setupEmulator()
+}
+
+const db = firebase.firestore()
+
+export { db, firebase }

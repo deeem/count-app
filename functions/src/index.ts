@@ -4,29 +4,47 @@ admin.initializeApp()
 
 const firestore = admin.firestore()
 
-exports.onUserStatusChanged = functions.database
+const setStatus = (uid: string, status: string, currentRoom: any) => {
+  const room = { ...currentRoom }
+  const teammateIndex = room.team.findIndex((item: any) => item.uid === uid)
+  const currentStatus = room.team[teammateIndex].status
+  const isOwner = room.owner.uid === uid
+  const isAcitve = room.active.uid === uid
+
+  console.log({ isAcitve, isOwner, currentStatus })
+
+  const newTeam = [...room.team]
+
+  // if user went offline and isActive, then make channel owner as active user
+  if (isAcitve && status === 'offline') {
+    room.active = { ...room.owner }
+  }
+
+  newTeam[teammateIndex] = { ...newTeam[teammateIndex], status: status }
+
+  return { ...room, team: newTeam }
+}
+
+exports.onStatusChanged = functions.database
   .ref('/status/{ruid}')
   .onUpdate(async (change: any, context: any) => {
     const eventStatus = change.after.val()
-
-    const userStatusFirestoreRef = firestore.doc(
-      `status/${context.params.ruid}`
-    )
-
-    // It is likely that the Realtime Database change that triggered
-    // this event has already been overwritten by a fast change in
-    // online / offline status, so we'll re-read the current data
-    // and compare the timestamps.
     const statusSnapshot = await change.after.ref.once('value')
     const status = statusSnapshot.val()
-    functions.logger.log(status, eventStatus)
-    // If the current timestamp for this data is newer than
-    // the data that triggered this event, we exit this function.
+
     if (status.last_changed > eventStatus.last_changed) {
       return null
     }
 
     eventStatus.last_changed = new Date(eventStatus.last_changed)
 
-    return userStatusFirestoreRef.set(eventStatus)
+    const [userId, roomId] = context.params.ruid.split('_')
+
+    const roomRef = firestore.collection('rooms').doc(roomId)
+    const roomEntry = await roomRef.get()
+    const room = roomEntry.data()
+
+    const newRoom = setStatus(userId, eventStatus.state, room)
+
+    return roomRef.set(newRoom)
   })
