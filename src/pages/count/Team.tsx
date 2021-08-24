@@ -6,7 +6,7 @@ import { useRoom } from './useRoom'
 export const Team = () => {
   const { user, room, roomRef, isUserAbleToSetActive } = useRoom()
 
-  if (!room || !user) return null
+  if (!room || !user || room.team.length === 1) return null
 
   const teamWithoutYou = getTeamWithoutUser(room.team, user)
 

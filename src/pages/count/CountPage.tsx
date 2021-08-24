@@ -6,6 +6,7 @@ import { setTeammateStatus } from './setTeammateStatus'
 import { TeamMate, User } from 'app.types'
 import { PresenceSubscriber } from './PresenceSubscriber'
 import { FullpageSpinner } from 'components/FullpageSpinner'
+import { Links } from './Links'
 
 export const CountPage = () => {
   const {
@@ -30,37 +31,40 @@ export const CountPage = () => {
   }
 
   return (
-    <>
-      <div className="bg-violet-900">
-        <div className="max-w-screen-sm mx-auto ">
-          <div className="p-3 text-white ">
-            <TeamItem
-              item={you}
-              isYou={true}
-              isOwner={isUserOwner}
-              canSetStatus={Boolean(isUserAbleToSetActive)}
-              setStatus={(teammate, status) =>
-                setTeammateStatus(
-                  room.team,
-                  teammate.uid as string,
-                  status,
-                  roomRef
-                )
-              }
-            />
+    <div className="flex flex-col min-h-screen">
+      <div className="flex-grow">
+        <div className="bg-violet-900">
+          <div className="max-w-screen-sm mx-auto ">
+            <div className="p-3 text-white ">
+              <TeamItem
+                item={you}
+                isYou={true}
+                isOwner={isUserOwner}
+                canSetStatus={Boolean(isUserAbleToSetActive)}
+                setStatus={(teammate, status) =>
+                  setTeammateStatus(
+                    room.team,
+                    teammate.uid as string,
+                    status,
+                    roomRef
+                  )
+                }
+              />
+            </div>
           </div>
         </div>
-      </div>
-      <div className="mt-12 mb-8">
-        <h3 className="mb-4 text-lg font-semibold tracking-widest text-center uppercase">
-          Score
-        </h3>
+        <div className="mt-12 mb-8">
+          <h3 className="mb-4 text-lg font-semibold tracking-widest text-center uppercase">
+            Score
+          </h3>
 
-        <Counter />
-      </div>
+          <Counter />
+        </div>
 
-      <Team />
-    </>
+        <Team />
+      </div>
+      <Links />
+    </div>
   )
 }
 
