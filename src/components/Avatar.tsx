@@ -10,7 +10,6 @@ type Props = {
 const statuses: Record<TeamMateStatus, string> = {
   online: 'bg-green-400 ',
   offline: 'bg-red-400',
-  away: 'bg-yellow-400',
 }
 
 export const Avatar: React.FC<Props> = ({ photoURL, status, isActive }) => {

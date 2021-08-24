@@ -48,30 +48,6 @@ export const TeamItem: React.FC<Props> = ({
         </div>
       </span>
       <span className="flex items-center justify-center">
-        {isYou && item.status === 'online' && (
-          <Button
-            variant="outline"
-            color="gray"
-            onClick={() => {
-              setStatus(item, 'away')
-            }}
-          >
-            set status 'away'
-          </Button>
-        )}
-
-        {isYou && item.status === 'away' && (
-          <Button
-            variant="outline"
-            color="gray"
-            onClick={() => {
-              setStatus(item, 'online')
-            }}
-          >
-            set status 'online'
-          </Button>
-        )}
-
         {canSetStatus &&
           item.status === 'online' &&
           item.uid !== room?.active.uid && (

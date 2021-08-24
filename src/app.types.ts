@@ -6,7 +6,7 @@ export type User = {
   photoURL: string | null
 }
 
-export type TeamMateStatus = 'online' | 'away' | 'offline'
+export type TeamMateStatus = 'online' | 'offline'
 
 export type TeamMate = Partial<User> & {
   status: TeamMateStatus
