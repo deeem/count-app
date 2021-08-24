@@ -4,7 +4,7 @@ import { useRoom } from './useRoom'
 import { TeamItem } from './TeamItem'
 import { setTeammateStatus } from './setTeammateStatus'
 import { TeamMate, User } from 'app.types'
-import { PresenceSubscriber } from './presence2'
+import { PresenceSubscriber } from './PresenceSubscriber'
 
 export const CountPage = () => {
   const {
@@ -22,7 +22,7 @@ export const CountPage = () => {
 
   const you = getUserFromTeam(room.team, user)
   const presense = PresenceSubscriber.getInstance()
-  presense.subscribe(room.team, roomRef, roomId)
+  presense.subscribe(roomId)
 
   if (!isUserOwner && !isUserTeammate) {
     roomRef.update({ team: [...room.team, { ...user, status: 'online' }] })

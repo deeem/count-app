@@ -1,6 +1,5 @@
 import 'firebase/database'
 import { firebase } from '../../firebase'
-import { TeamMate } from 'app.types'
 
 const isOfflineForDatabase = {
   state: 'offline',
@@ -27,11 +26,7 @@ export class PresenceSubscriber {
     return PresenceSubscriber.instance
   }
 
-  public subscribe(
-    team: TeamMate[],
-    roomRef: firebase.firestore.DocumentReference<firebase.firestore.DocumentData>,
-    roomId: string
-  ) {
+  public subscribe(roomId: string) {
     if (this.isSubscribed) return
 
     const uid = firebase.auth().currentUser?.uid
