@@ -23,8 +23,9 @@ const setupEmulator = () => {
 if (!firebase.apps.length) {
   firebase.initializeApp(firebaseConfig)
 
-  // uncomment to run in emulator
-  // setupEmulator()
+  if (window.location.hostname === 'localhost') {
+    setupEmulator()
+  }
 }
 
 const db = firebase.firestore()
