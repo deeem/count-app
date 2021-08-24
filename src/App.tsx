@@ -6,6 +6,11 @@ function App() {
   return (
     <Router>
       <Switch>
+        {/* <Route path="/loader" exact>
+          <div className="flex items-center justify-center h-screen">
+            <Loader type="Grid" color="#00BFFF" />
+          </div>
+        </Route> */}
         <Route path="/login" exact>
           <LoginPage />
         </Route>

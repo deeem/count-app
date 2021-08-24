@@ -21,7 +21,7 @@ function LoginPage() {
   return (
     <div className="flex flex-col items-center justify-center h-screen space-y-12">
       <h1 className="text-3xl font-bold ">Team Count App</h1>
-      <Button variant="filled" color="blue" size="large" onClick={handleSignIn}>
+      <Button variant="filled" color="gray" size="large" onClick={handleSignIn}>
         Sign in with Google
       </Button>
 

@@ -5,6 +5,7 @@ import { TeamItem } from './TeamItem'
 import { setTeammateStatus } from './setTeammateStatus'
 import { TeamMate, User } from 'app.types'
 import { PresenceSubscriber } from './PresenceSubscriber'
+import { FullpageSpinner } from 'components/FullpageSpinner'
 
 export const CountPage = () => {
   const {
@@ -18,7 +19,7 @@ export const CountPage = () => {
     isUserAbleToSetActive,
   } = useRoom()
 
-  if (loading || !room?.team) return null
+  if (loading || !room?.team) return <FullpageSpinner />
 
   const you = getUserFromTeam(room.team, user)
   const presense = PresenceSubscriber.getInstance()

@@ -1,3 +1,4 @@
+import { FullpageSpinner } from 'components/FullpageSpinner'
 import { useAuthState } from 'react-firebase-hooks/auth'
 import { Route, RouteProps, useHistory, useLocation } from 'react-router-dom'
 import { UserContex } from 'userContext'
@@ -17,7 +18,7 @@ export const PrivateRoute: React.FC<Props> = ({ children, ...rest }) => {
     <Route
       {...rest}
       render={() => {
-        if (loading) return null
+        if (loading) return <FullpageSpinner />
         if (!user) {
           history.push('/login', { returnUri: location.pathname })
           return
